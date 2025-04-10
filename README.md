@@ -38,5 +38,5 @@ If it is determined that you need a unique index (or want to place the data outs
 
 1. Click on **Settings > Indexes**
 
-![index creation step 1] (images/index-1.png)
+![index creation step 1](images/index-1.png)
 
