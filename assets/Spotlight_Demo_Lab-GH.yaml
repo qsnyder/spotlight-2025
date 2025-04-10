@@ -1,0 +1,1284 @@
+annotations: []
+smart_annotations: []
+nodes:
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 3411 bytes
+          !
+          ! Last configuration change at 01:36:59 UTC Wed Mar 19 2025
+          !
+          version 15.2
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          no service password-encryption
+          service compress-config
+          !
+          hostname coreswitch-02
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition Mgmt-intf
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          no logging console
+          enable password cisco
+          !
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          vtp domain virl.lab
+          vtp mode transparent
+          !
+          !
+          !
+          no ip domain-lookup
+          ip cef
+          no ipv6 cef
+          !
+          !
+          !
+          spanning-tree mode pvst
+          spanning-tree extend system-id
+          !
+          !
+          vlan 2
+           name ank_vlan2
+          no cdp run
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback0
+           description not connected
+           no ip address
+           shutdown
+          !
+          interface GigabitEthernet0/0
+           description MGMT-to port2.MgmtNet-Switch
+           no switchport
+           vrf forwarding Mgmt-intf
+           ip address 192.168.129.103 255.255.255.0
+           negotiation auto
+          !
+          interface GigabitEthernet0/1
+           description to GigabitEthernet0/3.CoreRouter-01
+           negotiation auto
+          !
+          interface GigabitEthernet0/2
+           description to GigabitEthernet0/2.CoreSwitch-01
+           negotiation auto
+          !
+          interface GigabitEthernet0/3
+           description to eth0.Host-02
+           negotiation auto
+          !
+          ip forward-protocol nd
+          !
+          no ip http server
+          no ip http secure-server
+          !
+          ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 192.168.129.1
+          ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          !
+          !
+          logging host 192.168.128.236 vrf Mgmt-intf
+          !
+          !
+          !
+          !
+          control-plane
+          !
+          banner exec ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          banner incoming ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          banner login ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          !
+          line con 0
+           exec-timeout 0 0
+           password cisco
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           password cisco
+           login
+           transport input telnet ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: CoreSwitch-02
+    node_definition: iosvl2
+    parameters: {}
+    ram: null
+    tags: []
+    x: 0
+    y: 80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 3411 bytes
+          !
+          ! Last configuration change at 01:36:16 UTC Wed Mar 19 2025
+          !
+          version 15.2
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          no service password-encryption
+          service compress-config
+          !
+          hostname coreswitch-01
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition Mgmt-intf
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          no logging console
+          enable password cisco
+          !
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          vtp domain virl.lab
+          vtp mode transparent
+          !
+          !
+          !
+          no ip domain-lookup
+          ip cef
+          no ipv6 cef
+          !
+          !
+          !
+          spanning-tree mode pvst
+          spanning-tree extend system-id
+          !
+          !
+          vlan 2
+           name ank_vlan2
+          no cdp run
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback0
+           description not connected
+           no ip address
+           shutdown
+          !
+          interface GigabitEthernet0/0
+           description MGMT-to port1.MgmtNet-Switch
+           no switchport
+           vrf forwarding Mgmt-intf
+           ip address 192.168.129.102 255.255.255.0
+           negotiation auto
+          !
+          interface GigabitEthernet0/1
+           description to GigabitEthernet0/2.CoreRouter-01
+           negotiation auto
+          !
+          interface GigabitEthernet0/2
+           description to GigabitEthernet0/2.CoreSwitch-02
+           negotiation auto
+          !
+          interface GigabitEthernet0/3
+           description to eth0.Host-01
+           negotiation auto
+          !
+          ip forward-protocol nd
+          !
+          no ip http server
+          no ip http secure-server
+          !
+          ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 192.168.129.1
+          ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          !
+          !
+          logging host 192.168.128.236 vrf Mgmt-intf
+          !
+          !
+          !
+          !
+          control-plane
+          !
+          banner exec ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          banner incoming ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          banner login ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          !
+          line con 0
+           exec-timeout 0 0
+           password cisco
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           password cisco
+           login
+           transport input telnet ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: CoreSwitch-01
+    node_definition: iosvl2
+    parameters: {}
+    ram: null
+    tags: []
+    x: -160
+    y: 80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+
+          Current configuration : 3764 bytes
+          !
+          ! Last configuration change at 01:37:03 UTC Wed Mar 19 2025
+          !
+          version 15.9
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          no service password-encryption
+          !
+          hostname corerouter-01
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition MGMT
+           !
+           address-family ipv4
+           exit-address-family
+          !
+          no logging console
+          enable secret 9 $9$h8Gt1oVNN814Bd$7lhgA2Kh.F5OBrG5LioL68v0KP9FJAYA8sFQ3xj3ufg
+          enable password cisco
+          !
+          no aaa new-model
+          !
+          !
+          !
+          mmi polling-interval 60
+          no mmi auto-configure
+          no mmi pvc
+          mmi snmp-timeout 180
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          no ip domain lookup
+          ip domain name virl.info
+          ip cef
+          no ipv6 cef
+          !
+          multilink bundle-name authenticated
+          !
+          !
+          !
+          !
+          username cisco privilege 15 secret 9 $9$JonwlhFfdsqtF7$J0SWg7GNwLwsG65GJKFSvLYA2ImxECeROieftO.gAwI
+          !
+          redundancy
+          !
+          no cdp run
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback0
+           description not connected
+           no ip address
+           shutdown
+          !
+          interface GigabitEthernet0/0
+           description MGMT-to port3.MgmtNet-Switch
+           vrf forwarding MGMT
+           ip address 192.168.129.101 255.255.255.0
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/1
+           description to GigabitEthernet0/1.RemoteRouter-01
+           no ip address
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/2
+           description to GigabitEthernet0/1.CoreSwitch-01
+           no ip address
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/3
+           description to GigabitEthernet0/1.CoreSwitch-02
+           no ip address
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          ip forward-protocol nd
+          !
+          !
+          no ip http server
+          no ip http secure-server
+          ip route vrf MGMT 0.0.0.0 0.0.0.0 192.168.129.1
+          ip ssh server algorithm authentication password
+          !
+          logging host 192.168.128.236 vrf MGMT
+          ipv6 ioam timestamp
+          !
+          !
+          !
+          control-plane
+          !
+          banner exec ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner incoming ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner login ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          !
+          line con 0
+           exec-timeout 0 0
+           password cisco
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           password cisco
+           login local
+           transport input telnet ssh
+          !
+          no scheduler allocate
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: CoreRouter-01
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: -80
+    y: -40
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+
+          Current configuration : 3754 bytes
+          !
+          ! Last configuration change at 01:37:54 UTC Wed Mar 19 2025
+          !
+          version 15.9
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          no service password-encryption
+          !
+          hostname remoterouter-01
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition MGMT
+           !
+           address-family ipv4
+           exit-address-family
+          !
+          no logging console
+          enable secret 9 $9$jATqmYvydGGlSd$spSqxzO7vO8lOMF30nE6I7k2OyKpSJ7hM.71EutPeig
+          enable password cisco
+          !
+          no aaa new-model
+          !
+          !
+          !
+          mmi polling-interval 60
+          no mmi auto-configure
+          no mmi pvc
+          mmi snmp-timeout 180
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          no ip domain lookup
+          ip domain name virl.info
+          ip cef
+          no ipv6 cef
+          !
+          multilink bundle-name authenticated
+          !
+          !
+          !
+          !
+          username cisco privilege 15 secret 9 $9$zdjzE21mugwsF7$A54N1DLfb0VkUGjHrQS0wFQbvQi9Yc9AHXQveOvIxRI
+          !
+          redundancy
+          !
+          no cdp run
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback0
+           description not connected
+           no ip address
+           shutdown
+          !
+          interface GigabitEthernet0/0
+           description MGMT-to port4.MgmtNet-Switch
+           vrf forwarding MGMT
+           ip address 192.168.129.104 255.255.255.0
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/1
+           description to GigabitEthernet0/1.CoreRouter-01
+           no ip address
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/2
+           description to GigabitEthernet0/1.RemoteSwitch-01
+           no ip address
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/3
+           description not connected
+           no ip address
+           shutdown
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          ip forward-protocol nd
+          !
+          !
+          no ip http server
+          no ip http secure-server
+          ip route vrf MGMT 0.0.0.0 0.0.0.0 192.168.129.1
+          ip ssh server algorithm authentication password
+          !
+          logging host 192.168.128.236 vrf MGMT
+          ipv6 ioam timestamp
+          !
+          !
+          !
+          control-plane
+          !
+          banner exec ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner incoming ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner login ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          !
+          line con 0
+           exec-timeout 0 0
+           password cisco
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           password cisco
+           login local
+           transport input telnet ssh
+          !
+          no scheduler allocate
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    image_definition: null
+    label: RemoteRouter-01
+    node_definition: iosv
+    parameters: {}
+    ram: null
+    tags: []
+    x: 480
+    y: -40
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: ios_config.txt
+        content: |-
+          Building configuration...
+
+          Current configuration : 3421 bytes
+          !
+          ! Last configuration change at 01:39:14 UTC Wed Mar 19 2025
+          !
+          version 15.2
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          no service password-encryption
+          service compress-config
+          !
+          hostname remoteswitch-01
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition Mgmt-intf
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          no logging console
+          enable password cisco
+          !
+          no aaa new-model
+          !
+          !
+          !
+          !
+          !
+          vtp domain virl.lab
+          vtp mode transparent
+          !
+          !
+          !
+          no ip domain-lookup
+          ip cef
+          ipv6 unicast-routing
+          ipv6 cef
+          !
+          !
+          !
+          spanning-tree mode pvst
+          spanning-tree extend system-id
+          !
+          !
+          vlan 2
+           name ank_vlan2
+          no cdp run
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback0
+           description not connected
+           no ip address
+           shutdown
+          !
+          interface GigabitEthernet0/0
+           description MGMT-to port5.MgmtNet-Switch
+           no switchport
+           vrf forwarding Mgmt-intf
+           ip address 192.168.129.105 255.255.255.0
+           negotiation auto
+          !
+          interface GigabitEthernet0/1
+           description to GigabitEthernet0/2.RemoteRouter-01
+           negotiation auto
+          !
+          interface GigabitEthernet0/2
+           description to eth0.Host-03
+           negotiation auto
+          !
+          interface GigabitEthernet0/3
+           description not connected
+           shutdown
+           negotiation auto
+          !
+          ip forward-protocol nd
+          !
+          no ip http server
+          no ip http secure-server
+          !
+          ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 192.168.129.1
+          ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+          !
+          !
+          logging host 192.168.128.236 vrf Mgmt-intf
+          !
+          !
+          !
+          !
+          control-plane
+          !
+          banner exec ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          banner incoming ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          banner login ^C
+          IOSv - Cisco Systems Confidential -
+
+          Supplemental End User License Restrictions
+
+          This IOSv software is provided AS-IS without warranty of any kind. Under no circumstances may this software be used separate from the Cisco Modeling Labs Software that this software was provided with, or deployed or used as part of a production environment.
+
+          By using the software, you agree to abide by the terms and conditions of the Cisco End User License Agreement at http://www.cisco.com/go/eula. Unauthorized use or distribution of this software is expressly prohibited.
+          ^C
+          !
+          line con 0
+           exec-timeout 0 0
+           password cisco
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           password cisco
+           login
+           transport input telnet ssh
+          !
+          !
+          end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    image_definition: null
+    label: RemoteSwitch-01
+    node_definition: iosvl2
+    parameters: {}
+    ram: null
+    tags: []
+    x: 480
+    y: 80
+    interfaces:
+      - id: i0
+        label: Loopback0
+        mac_address: null
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        mac_address: null
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet0/1
+        mac_address: null
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet0/2
+        mac_address: null
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet0/3
+        mac_address: null
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: node.cfg
+        content: |-
+          # Desktop Config generated on 2025-03-17 21:40
+          # by ank-ng
+          #
+          # this is a shell script which will be sourced at boot
+          hostname host-01
+          # configurable user account
+          USERNAME=cisco
+          PASSWORD=cisco
+          ifconfig eth0 172.25.100.100 netmask 255.255.255.0 up
+          route add default gw 172.25.100.1 eth0
+          mkdir -p /home/cisco
+          touch /home/cisco/.profile
+          echo "export PS1='\[\e[92m\]\u@\h\[\e[97m\]:\[\e[96m\]\w\[\e[97m\]\$\[\e[0m\]'" >> /home/cisco/.profile
+          echo "export TERM=xterm-256color" >> /home/cisco/.profile
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n5
+    image_definition: null
+    label: Host-01
+    node_definition: desktop
+    parameters: {}
+    ram: null
+    tags: []
+    x: -160
+    y: 240
+    interfaces:
+      - id: i0
+        label: eth0
+        mac_address: null
+        slot: 0
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: node.cfg
+        content: |-
+          # Desktop Config generated on 2025-03-17 21:40
+          # by ank-ng
+          #
+          # this is a shell script which will be sourced at boot
+          hostname host-03
+          # configurable user account
+          USERNAME=cisco
+          PASSWORD=cisco
+          ifconfig eth0 172.25.200.100 netmask 255.255.255.0 up
+          route add default gw 172.25.200.1 eth0
+          mkdir -p /home/cisco
+          touch /home/cisco/.profile
+          echo "export PS1='\[\e[92m\]\u@\h\[\e[97m\]:\[\e[96m\]\w\[\e[97m\]\$\[\e[0m\]'" >> /home/cisco/.profile
+          echo "export TERM=xterm-256color" >> /home/cisco/.profile
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n6
+    image_definition: null
+    label: Host-03
+    node_definition: desktop
+    parameters: {}
+    ram: null
+    tags: []
+    x: 480
+    y: 240
+    interfaces:
+      - id: i0
+        label: eth0
+        mac_address: null
+        slot: 0
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: node.cfg
+        content: |-
+          # Desktop Config generated on 2025-03-17 21:40
+          # by ank-ng
+          #
+          # this is a shell script which will be sourced at boot
+          hostname host-02
+          # configurable user account
+          USERNAME=cisco
+          PASSWORD=cisco
+          ifconfig eth0 172.25.100.101 netmask 255.255.255.0 up
+          route add default gw 172.25.100.1 eth0
+          mkdir -p /home/cisco
+          touch /home/cisco/.profile
+          echo "export PS1='\[\e[92m\]\u@\h\[\e[97m\]:\[\e[96m\]\w\[\e[97m\]\$\[\e[0m\]'" >> /home/cisco/.profile
+          echo "export TERM=xterm-256color" >> /home/cisco/.profile
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n7
+    image_definition: null
+    label: Host-02
+    node_definition: desktop
+    parameters: {}
+    ram: null
+    tags: []
+    x: 0
+    y: 240
+    interfaces:
+      - id: i0
+        label: eth0
+        mac_address: null
+        slot: 0
+        type: physical
+  - boot_disk_size: null
+    configuration: []
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: true
+    id: n8
+    image_definition: null
+    label: MgmtNet-Switch
+    node_definition: unmanaged_switch
+    parameters: {}
+    ram: null
+    tags: []
+    x: 240
+    y: 40
+    interfaces:
+      - id: i0
+        label: port0
+        mac_address: null
+        slot: 0
+        type: physical
+      - id: i1
+        label: port1
+        mac_address: null
+        slot: 1
+        type: physical
+      - id: i2
+        label: port2
+        mac_address: null
+        slot: 2
+        type: physical
+      - id: i3
+        label: port3
+        mac_address: null
+        slot: 3
+        type: physical
+      - id: i4
+        label: port4
+        mac_address: null
+        slot: 4
+        type: physical
+      - id: i5
+        label: port5
+        mac_address: null
+        slot: 5
+        type: physical
+      - id: i6
+        label: port6
+        mac_address: null
+        slot: 6
+        type: physical
+      - id: i7
+        label: port7
+        mac_address: null
+        slot: 7
+        type: physical
+  - boot_disk_size: null
+    configuration:
+      - name: default
+        content: bridge101
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: true
+    id: n9
+    image_definition: null
+    label: MgmtNet
+    node_definition: external_connector
+    parameters: {}
+    ram: null
+    tags: []
+    x: 240
+    y: 240
+    interfaces:
+      - id: i0
+        label: port
+        mac_address: null
+        slot: 0
+        type: physical
+links:
+  - id: l0
+    n1: n8
+    n2: n9
+    i1: i0
+    i2: i0
+    conditioning: {}
+    label: MgmtNet-Switch-port0<->MgmtNet-port
+  - id: l1
+    n1: n1
+    n2: n8
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: CoreSwitch-01-GigabitEthernet0/0<->MgmtNet-Switch-port1
+  - id: l2
+    n1: n0
+    n2: n8
+    i1: i1
+    i2: i2
+    conditioning: {}
+    label: CoreSwitch-02-GigabitEthernet0/0<->MgmtNet-Switch-port2
+  - id: l3
+    n1: n2
+    n2: n8
+    i1: i1
+    i2: i3
+    conditioning: {}
+    label: CoreRouter-01-GigabitEthernet0/0<->MgmtNet-Switch-port3
+  - id: l4
+    n1: n3
+    n2: n8
+    i1: i1
+    i2: i4
+    conditioning: {}
+    label: RemoteRouter-01-GigabitEthernet0/0<->MgmtNet-Switch-port4
+  - id: l5
+    n1: n4
+    n2: n8
+    i1: i1
+    i2: i5
+    conditioning: {}
+    label: RemoteSwitch-01-GigabitEthernet0/0<->MgmtNet-Switch-port5
+  - id: l6
+    n1: n2
+    n2: n3
+    i1: i2
+    i2: i2
+    conditioning: {}
+    label: CoreRouter-01-GigabitEthernet0/1<->RemoteRouter-01-GigabitEthernet0/1
+  - id: l7
+    n1: n2
+    n2: n1
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: CoreRouter-01-GigabitEthernet0/2<->CoreSwitch-01-GigabitEthernet0/1
+  - id: l8
+    n1: n2
+    n2: n0
+    i1: i4
+    i2: i2
+    conditioning: {}
+    label: CoreRouter-01-GigabitEthernet0/3<->CoreSwitch-02-GigabitEthernet0/1
+  - id: l9
+    n1: n1
+    n2: n0
+    i1: i3
+    i2: i3
+    conditioning: {}
+    label: CoreSwitch-01-GigabitEthernet0/2<->CoreSwitch-02-GigabitEthernet0/2
+  - id: l10
+    n1: n1
+    n2: n5
+    i1: i4
+    i2: i0
+    conditioning: {}
+    label: CoreSwitch-01-GigabitEthernet0/3<->Host-01-eth0
+  - id: l11
+    n1: n0
+    n2: n7
+    i1: i4
+    i2: i0
+    conditioning: {}
+    label: CoreSwitch-02-GigabitEthernet0/3<->Host-02-eth0
+  - id: l12
+    n1: n3
+    n2: n4
+    i1: i3
+    i2: i2
+    conditioning: {}
+    label: RemoteRouter-01-GigabitEthernet0/2<->RemoteSwitch-01-GigabitEthernet0/1
+  - id: l13
+    n1: n4
+    n2: n6
+    i1: i3
+    i2: i0
+    conditioning: {}
+    label: RemoteSwitch-01-GigabitEthernet0/2<->Host-03-eth0
+lab:
+  description: ''
+  notes: ''
+  title: Spotlight Demo Lab
+  version: 0.3.0

@@ -1,0 +1,59 @@
+{
+  "version": "0.1",
+  "sharedSecret": "*****",
+  "sentAt": "2025-04-04T22:25:50.910862Z",
+  "organizationId": "",
+  "organizationName": "Cisco U. Spotlight",
+  "organizationUrl": "https://n188.meraki.com/o/K5Fayb8c/manage/organization/overview",
+  "networkId": "",
+  "networkName": "Meraki Network",
+  "networkUrl": "https://n188.meraki.com/Meraki-Network-s/n/DoYrZb8c/manage/nodes/list",
+  "networkTags": [],
+  "deviceSerial": "",
+  "deviceMac": "",
+  "deviceName": "",
+  "deviceUrl": "",
+  "deviceTags": [],
+  "deviceModel": "",
+  "alertId": "668784544679263518",
+  "alertType": "Settings changed",
+  "alertTypeId": "settings_changed",
+  "alertLevel": "informational",
+  "occurredAt": "2025-04-04T22:15:47.236403Z",
+  "alertData": {
+    "name": "via API",
+    "userId": ,
+    "changes": {
+      "apiChange": {
+        "label": "PUT /api/v1/devices/SERIAL/managementInterface",
+        "newText": {
+          "wan1": {
+            "usingStaticIp": true,
+            "staticIp": "10.0.1.4",
+            "staticSubnetMask": "255.255.255.0",
+            "staticGatewayIp": "10.0.1.1",
+            "staticDns": [
+              "208.67.220.220",
+              "208.67.222.222"
+            ],
+            "vlan": 1
+          }
+        },
+        "oldText": {
+          "wan1": {
+            "usingStaticIp": true,
+            "staticIp": "10.0.1.9",
+            "staticSubnetMask": "255.255.255.0",
+            "staticGatewayIp": "10.0.1.1",
+            "staticDns": [
+              "208.67.220.220",
+              "208.67.222.222"
+            ],
+            "vlan": 1
+          }
+        },
+        "changedBy": "Kareem ()"
+      }
+    }
+  }
+}

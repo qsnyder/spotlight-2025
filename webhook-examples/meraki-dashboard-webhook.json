@@ -1,0 +1,55 @@
+{
+  "version": "0.1",
+  "sharedSecret": "*****",
+  "sentAt": "2025-04-04T23:21:44.746733Z",
+  "organizationId": "",
+  "organizationName": "Cisco U. Spotlight",
+  "organizationUrl": "https://n188.meraki.com/o/K5Fayb8c/manage/organization/overview",
+  "networkId": "",
+  "networkName": "Meraki Network",
+  "networkUrl": "https://n188.meraki.com/Meraki-Network-s/n/DoYrZb8c/manage/nodes/list",
+  "networkTags": [],
+  "deviceSerial": "",
+  "deviceMac": "",
+  "deviceName": "",
+  "deviceUrl": "",
+  "deviceTags": [],
+  "deviceModel": "",
+  "alertId": "668784544679263568",
+  "alertType": "Settings changed",
+  "alertTypeId": "settings_changed",
+  "alertLevel": "informational",
+  "occurredAt": "2025-04-04T23:11:39.906337Z",
+  "alertData": {
+    "name": "Overview",
+    "url": "/manage/nodes",
+    "changes": {
+      "staticIp84424578629651": {
+        "label": "Assign IP : Switchy the Switch",
+        "oldText": {
+          "iP type": "Static IP",
+          "iP": "10.0.1.4",
+          "vLAN": 1,
+          "subnet mask": "255.255.255.0",
+          "gateway": "10.0.1.1",
+          "primary DNS": "208.67.220.220",
+          "secondary DNS": "208.67.222.222",
+          "iPv6 type": "Auto"
+        },
+        "newText": {
+          "iP type": "Static IP",
+          "iP": "10.0.1.15",
+          "vLAN": 1,
+          "subnet mask": "255.255.255.0",
+          "gateway": "10.0.1.1",
+          "primary DNS": "208.67.220.220",
+          "secondary DNS": "208.67.222.222",
+          "iPv6 type": "Auto"
+        },
+        "changedBy": "Quinn Snyder ()",
+        "ssidId": null
+      }
+    },
+    "userId":
+  }
+}
