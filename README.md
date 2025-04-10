@@ -15,3 +15,28 @@ There are several folders included within this repository to aid in your self-he
 
 ## Scaffolding the Splunk Instance
 
+You'll need to create several different components to segregate the data within the platform.  Some of these are optional (and will be noted as such), while others are required in order to ingest the data.
+
+### Indexes for Data
+
+#### Defining What Requires an Index
+
+Different sets of data can be placed into different indexes, depending on the requirements and needs of your organization.  While the scope of "why" you would do this is beyond the scope of this session, there are a few general best practices:
+
+- **Does the data need to be segmented via Role-Based Access Control (RBAC)?**
+  - If the data needs to be segmented from the view of different users, it will need to be placed in a unique index
+- **Do unique data retention requirements exist between types of data?**
+  - Data retention is defined *per index*, so if there are different requirements, different indexes will be required
+- **Do the different data sources have different data volumes?**
+  - While not a massive issue, if you have data sources that generate 1000s of events per hour, while another source that generates a few events per day -- you may want to segment the data purely from a refinement and visibility standpoint
+
+Splunk **does not** require different data types/structures to be segmented into different indexes, so that does not need to be a defining factor.
+
+#### Creating the Index
+
+If it is determined that you need a unique index (or want to place the data outside of the default main index), here are the steps required:
+
+1. Click on **Settings > Indexes**
+
+![index creation step 1] (images/index-1.png)
+
