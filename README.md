@@ -82,3 +82,16 @@ To create a syslog listener for splunk (the first part of the demo), perform the
 
 ## Using the Splunk Webhook Middleware
 
+## A Note About Webhooks from Splunk
+
+If you test your outbound Splunk webhooks using something like [webhook.site](https://www.webhook.site), you'll notice that the resulting output differs from the input, especially where JSON webhooks are concerned.
+
+Generally, webhooks will be in JSON format and can be nested (e.g. lists and dictionaries can exist within top-level keys).  This can be seen in the example webhook from Meraki found [here](webhook-examples/meraki-api-webhook.json).  Notice, specifically that there exists some data under the **[event][alertData][changes][apiChanges]** path.
+
+If we were to compare that to what is seen in Splunk (and therefore seen outbound in a webhook from Splunk), you'll see the following
+
+![flattened splunk outputs](images/flattened-splunk.png)
+
+Note that the paths that existed as part of nested key/value pairs are now given as "flat" dotted-notation (similar to what is seen in something like a Python method call or so).  What is seen in the image above, is sent in the webhook.  This can cause issues, as you're no longer able to build conditionals based on the "nested" nature of the payload directly from the webhook.
+
+This is why the session focuses on using the `[_raw]` key within the data from Splunk in the listener itself.  It is possible to conver this key into searchable JSON and then query as you would directly from the source data itself.
