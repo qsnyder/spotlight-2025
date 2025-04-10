@@ -40,3 +40,45 @@ If it is determined that you need a unique index (or want to place the data outs
 
 ![index creation step 1](images/index-1.png)
 
+2. Give the new index a name.  You can change the other settings, including size and retention if desired.  Click **Save** when completed
+
+![index creation step 2](images/index-2.png)
+
+3. The index will now be available for data source ingestion
+
+### Creating a Local Listener (e.g. syslog)
+
+In order to accept data being sent from sources, you need to define data input within the Splunk platform.  This creates the "listener" within Splunk to accept the data being sent to it.
+
+#### Defining a Syslog Listener
+
+To create a syslog listener for splunk (the first part of the demo), perform the following actions:
+
+1. Click on **Settings > Data Inputs > UDP**.  This is due to syslog being sent along a UDP port
+
+![syslog-listener step 1](images/udp-inputs.png)
+
+2. Click on **New Local UDP**
+
+3. Define the transport type and port number, as well as any overrides necessary.  For syslog, use `udp/514`.  Click **Next**
+
+![syslog-listener step 2](images/syslog-1.png)
+
+4. Select the data source type.  In this case, we'll be sending syslog data from Cisco devices, so search for `cisco_syslog` and select that option.  Click **Next** when done
+
+![syslog-listener step 3](images/syslog-2.png)
+
+5. Select the index in which you'd like to place the data.  In this case, we're placing it in a net-new index created for the syslog data.  Click **Next** when complete
+
+![syslog-listener step 4](images/syslog-3.png)
+
+6. Finally, review the settings to make sure that everything is correct.  Click **Submit** when completed
+
+![syslog-listener step 5](images/syslog-4.png)
+
+### Creating a Web Listener (Webhook Events)
+
+## Creating Webex Webhook Listeners
+
+## Using the Splunk Webhook Middleware
+
