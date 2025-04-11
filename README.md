@@ -78,9 +78,168 @@ To create a syslog listener for splunk (the first part of the demo), perform the
 
 ### Creating a Web Listener (Webhook Events)
 
+In order to process webhook events within Splunk, you must create an *HTTP Event Collector*, or a listener that collects HTTP-transport-based events.  This will allow Splunk to listen to webhook events, process them, and place them in the correct index.
+
+> Note: When sending webhooks from Meraki directly into Splunk, ensure that your Splunk instance has a valid TLS certificate for the domain.  Meraki platform requires a valid certificate in order to ensure that the webhook is transmitted.
+
+#### Creating the HEC
+
+In order to create the HEC for Splunk to ingest webhooks, the following steps should be used:
+
+1. Within the Splunk console, select **Settings > Data Inputs > HTTP Event Collector**
+
+![hec step 1](images/hec-1.png)
+
+2. Click on **New Token**.  A HEC is basically creating a new authorization token externally, which then correlates to given Splunk settings internally
+
+![hec step 2](images/hec-2.png)
+
+3. Provide a name for the HEC.  You can also turn on acknowledgement if desired to provide conditional "ack"ing of your logging, if desired.  For this, its best to be left unchecked.
+
+![hec step 3](images/hec-3.png)
+
+4. While you can let Splunk automatically determine the incoming data type, you can also manually select.  In this case, `_json` should be used, since its JSON-encoded data.  Additionally, you should select the desired index in which to store this data
+
+![hec step 4](images/hec-4.png)
+
+5. Review the settings and click **Submit**
+
+![hec step 5](images/hec-5.png)
+
+6. You will receive a screen that indicates the token has been created.  The token value that you receive will need to be input as an authorization header for whichever webhook sender you wish to use for this HEC.  These tokens can also be retrieved after the fact from the main HEC screen
+
+![hec step 6](images/hec-6.png)
+
+7. The final step is to create the outbound webhook (in this case, using the Meraki Dashboard).  This is done by logging into Dashboard and selecting **Organization > API & Webhooks > Webhooks > Templates** and selecting **Create template**.  Provide the template a name, and under **Liquid Body**, paste the following
+
+```liquid
+{
+  "time": {{sentAt | date:"%s"}},
+  "source": "{{networkName}}",
+  "sourceType": "meraki:webhook",
+  "event" : {
+    "sentAt": "{{sentAt}}",
+    "organizationId": "{{organizationId}}",
+    "organizationName": "{{organizationName}}",
+    "organizationUrl": "{{organizationUrl}}",
+    "networkId": "{{networkId}}",
+    "networkName": "{{networkName}}",
+    "networkUrl": "{{networkUrl}}",
+    "networkTags": {{ networkTags | jsonify }},
+    "deviceSerial": "{{deviceSerial}}",
+    "deviceMac": "{{deviceMac}}",
+    "deviceName": "{{deviceName}}",
+    "deviceUrl": "{{deviceUrl}}",
+    "deviceTags": {{ deviceTags | jsonify }},
+    "deviceModel": "{{deviceModel}}",
+    "alertId": "{{alertId}}",
+    "alertType": "{{alertType}}",
+    "alertTypeId": "{{alertTypeId}}",
+    "alertLevel": "{{alertLevel}}",
+    "occurredAt": "{{occurredAt}}",
+    "alertData": {{ alertData | jsonify }},
+    "notes" : "Sent Via Webhook"
+  }
+}
+```
+
+and under **Liquid Headers** set the following:
+
+- First box (key)
+  - `Authorization`
+- Second box (value)
+  - `Splunk {KEY_COPIED_FROM_HEC}
+
+and click **Save**.  When you view the template, verify that the headers look like below
+
+![hec step 7](images/hec-7.png)
+
+8. Create an alert by going back to **Organization > API & Webhooks > Webhooks > Add receiver**.  This will bring up a screen wherein you can give the alert a name, provide the URL and shared secret, and the payload template.  URL should be of the format `https://{SPLUNK-FQDN}:8088/services/collector/raw` and shared secret should be blank (authorization is done via the Splunk token from the template).  Select the template created in the previous step and click **Save**.
+
+![hec step 8](images/hec-8.png)
+
+9. To leverage the webhooks as an alert receiver, go to **Organization > Alerts** and scroll down to **Network Alerts**.  For each of the desired alerts that you wish to send as a webhook alert, add the name of the alert that you created in the previous step to the **Recipients** box under each item
+
+![hec step 9](images/hec-9.png)
+
+> Note: Webhooks from Meraki platform will take ~10 minutes to be fired to the receiver.  This will be indicated in the payload indicating when the change was made and when the alert was fired.  See the example Meraki webhook for further details
+
 ## Creating Webex Webhook Listeners
 
+While it is possible to leverage a Webex bot account and token to receive the information from Splunk, use of the *Incoming Webhooks* application for Webex, available from the Webhook AppHub.  This application can be found [here](https://apphub.webex.com/applications/incoming-webhooks-cisco-systems-38054-23307-75252).
+
+1. Log-in to your Webex account
+
+2. Connect the application to your account by clicking on the green "Connect" button at the top of the screen.
+
+![webex webhook step 1](images/webex-webhook-1.png)
+
+3. Scroll down and enter in a name for the webhook (what will appear in Webex as the sender of the message) and select the room which will receive the webhook message
+
+![webex webhook step 2](images/webex-webhook-2.png)
+
+> Note: This must be a precreated space.  If you create a new space after you connect the application to your account, you may need to refresh the page for the new Webex space to appear.
+
+4. Record the URL generated for this specific webhook.  This will be required as the path to which to send an HTTP `POST` in order for the message to be sent.  If you don't record the address, don't worry!  You can access your previously created webhooks and retrieve the address at a later date if needed
+
 ## Using the Splunk Webhook Middleware
+
+In order to use the disired middleware application included in this repository, several steps will be needed to be performed.  Keep in mind that the two listeners could be combined by either using message parsing to the same `/webhook` URI or by creating a new URI path and pasting the second set of code appropriately.  In this combination, the listener will still listen on the same port, with the payload being parsed appropriately based on what is sent to the listener (or which URI is used).
+
+### Cloning the Repository
+
+In the desired folder, perform a `git clone` on this repository
+
+```bash
+git clone https://github.com/qsnyder/spotlight-2025.git
+```
+
+### Creating a Virtual Environment; Installing Python Requirements
+
+Within the `spotlight-2025` folder, create a Python virtual environment
+
+```bash
+cd spotlight-2025
+python3 -m venv venv
+source venv/bin/activate
+```
+
+This will activate the virtualenv and prepare you to install the requirements for the webhook listener
+
+> Note: The Meraki Python SDK requires a Python version at or equal to 3.10
+
+Once activated (you'll see `(venv)` inside of your shell prompt), you can install the requirements for the listener, depending on which version you'll be running
+
+```bash
+cd syslog
+pip install -r requirements.txt
+```
+
+### Modifying the Source Code
+
+A full explanation of all of the code is outside the scope of this repository, however analysis of the example webhooks from Splunk using something like [webhook.site](https://webhook.site) or so will correlate the fields used to some of the JSON body parsing within the source code.
+
+However, there are a couple of important points I will explain:
+
+- `@app.route("/webhook", methods=["POST"])`
+
+This app.route decorator defines the URI (the appended path to the server address) of this specific webhook action.  If you desire to add additional listener paths, just create a new URI decorator underneath the existing one.  Ensure that the `POST` method is defined, as the webhook sender will be "POSTing" the data to that URI
+
+- `"WEBHOOK-URL"`
+
+Whatever the whole URL generated from the above Webex Incoming Webhooks app, this should be placed here.  It is also possible to define that address as a constant above the code, such that it is globally accessible across the code, but that is a decision left to the developer
+
+- `app.run(host="0.0.0.0", debug=True, port=8888)`
+
+In order to run the Flask app, the app definition must be run.  This line performs the running of the app on the indicated TCP port (in this case, 8888).  Additionally, since the `debug=True` flag is set, whenever the code is modified and saved, the app will automatically restarted, removing the requirement to stop and restart the app manually
+
+### Running the Application
+
+If being run from a long-lived terminal session, it is possible to invoke the application directly from the CLI (assuming the virtualenv is still active in the current shell) by using `python webhook.py`.
+
+However, if the application will be run on a remote server without a persistent terminal session, it is generally recommended to run the webhook from within a shell inside of a `tmux` session.
+
+A primer and introduction to `tmux` is available through the `tmux` Github wiki pages found [here](https://github.com/tmux/tmux/wiki/Getting-Started)
 
 ## A Note About Webhooks from Splunk
 
